@@ -1,0 +1,64 @@
+Class 1:
+- Containers vs Virtual Machines
+- What is a Container?
+- Installing Docker & Network changes
+- Docker Architecture - https://docs.docker.com/get-started/images/docker-architecture.png
+- Listing namespaces for Docker Containers
+- Running basic docker commands
+    docker run
+    docker ps & ps -a
+    docker exec -it app1 bash
+    docker images
+    docker network ls
+    docker system prune
+    docker stop & pause
+- Understanding Docker Networking Options
+- Change Docker Default Location
+- Data Persistance with Docker Volumes & Bindmounts
+
+Class 2:
+- Building docker images with Dockerfile & Dockerfile instructions
+- docker system prune for deleting dangling images,dangling build cache,networks not in use, stopped containers
+- Multi-Stage Dockerfile
+- Push Images to DockerHub
+- Create a AWS Elastic Container Registry(ECR) and Push Images to private registry.
+- Google Distroless Images
+- Docker Compose
+
+Class 3:
+- Deploy Docker Swarm using Terraform & configure swarm manually.
+- Container Orchestration & Docker Swarm vs Kubernetes
+- Understand RAFT Algorithm
+- Deploying 6(master/2-manager/3-nodes) Node Docker Swarm Cluster
+- Creating appliactions using docker service command
+- Docker Node Availibility & Maintenance
+- Container Placement using Labels & Constraints
+- Global and Replicated Service Modes
+
+Class 4:
+- Deploy Docker Swarm using Terraform & Ansible Playbook.
+- Docker Secrets & Config
+- Docker Reservations & Limits
+
+Class 5:
+- Configure Traefik Ingress Controller for Traffic Management.
+- Deploy app-nginx.yml, app-flask.yml, votingapp_with_traefik.yml
+- Understand Rollingupdate, Canary & Blue-Green Deployments.
+
+Class 6: OBSERVABILITY
+- Docker Log Collection
+- Creating Elastic Cloud Account
+- Walk though Elastic Cloud for Observability
+- Create Agent Policy with Uptime Integration.
+- Run Elastic Playbook for install elastic-agent and register to elastic cloud.
+- Monitor Logs in elastic cloud.
+- Create Alerts in Elastic Cloud.
+
+- Dockerfile, Image, Repo, Filesyste & Container Scanning using Trivy.
+- Docker Healthchecks
+- Docker cAdvisor for Monitoring
+
+Class 7:
+- Monolithic vs Microservices Architecture
+- Kubernetes Architecture
+- Deploy Kubernetes with KOPS

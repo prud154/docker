@@ -1,0 +1,112 @@
+1. Installing docker.
+2. Docker networks -> bridge,host,none
+3. Dockerfile, dangling system prune
+4. Reduce size with less layers.
+5. Dockerfile with non-root user and security.
+6. Multi-Stage Dockerfile & Distroless Images.
+7. Moving Docker default config to diffrent drive.
+8. Docker Volumes and bind-mounts.
+9. Docker volume usage with MySQL
+docker run --rm -d --name mysql01 \
+    -p 3306:3306 \
+    -p 33060:33060 \
+    -v mysql_data:/var/lib/mysql \
+    -e MYSQL_ROOT_PASSWORD=India123456 \
+    -e MYSQL_DATABASE=myflixdb \
+    mysql:latest
+
+10. Docker bindmount with Cadvisor & Portainer
+##C-Advisor
+VERSION=v0.36.0
+sudo docker run --rm -d  \
+  --volume=/:/rootfs:ro \
+  --volume=/var/run:/var/run:ro \
+  --volume=/sys:/sys:ro \
+  --volume=/var/lib/docker/:/var/lib/docker:ro \
+  --volume=/dev/disk/:/dev/disk:ro \
+  --publish=8080:8080 \
+  --detach=true \
+  --name=cadvisor \
+  --privileged \
+  --device=/dev/kmsg \
+  gcr.io/cadvisor/cadvisor:$VERSION
+
+##Portainer
+docker run -d -p 8000:8000 -p 9443:9443 --name portainer \
+--restart=always -v /var/run/docker.sock:/var/run/docker.sock \
+-v portainer_data:/data portainer/portainer-ce:latest
+
+9. Docker Compose For Developers.
+   Compose can build and start mutliple containers based on dependency.
+   It will work on a single system not for production.
+   
+10. Container Orchestartion & Understanding Docker Swarm & Enabling it.
+11. Understanding RAFT Protocol using by Docker Swarm & K8S.
+12. Deploy Visulizer container for SWARM GUI Visibility.
+$ docker service create \
+  --name=viz \
+  --publish=8080:8080/tcp \
+  --constraint=node.role==manager \
+  --mount=type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock \
+  dockersamples/visualizer
+
+13. Deploy Test Services and check the container behavior by stopping it.
+14. Replica Mode(k8s replicaset) & Global Mode(daemonset).
+docker network create --driver overlay node-exporter
+
+docker service create \
+  --name node-exporter \
+  --mode global \
+  --network node-exporter \
+  --mount=type=bind,src=/,dst=/host:ro,dst=/rslave \
+  --publish 9100:9100 \
+  prom/node-exporter:latest
+
+docker service create  \
+  --mount=type=bind,src=/,dst=/rootfs:ro \
+  --mount=type=bind,src=/var/run,dst=/var/run:ro \
+  --mount=type=bind,src=/sys,dst=/sys:ro \
+  --mount=type=bind,src=/var/lib/docker/,dst=/var/lib/docker:ro \
+  --mount=type=bind,src=/dev/disk/,dst=/dev/disk:ro \
+  --publish=8090:8080 \
+  --name=cadvisor \
+  --mode global \
+  --network node-exporter \
+  gcr.io/cadvisor/cadvisor:v0.36.0
+
+
+14. Understanding Labels and container placement.
+    System Defined or Default Labels
+
+    User Defined Labels
+    docker node update --label-add=DEV=YES ip-10-40-1-212
+
+    docker service create --constraint=node.role!=manager --name nginx --replicas 6 nginx:latest
+    docker service create --constraint=node.role==manager --name nginx --replicas 6 nginx:latest
+    docker service create --constraint=node.labels.WORK==YES --name nginx --replicas 6 nginx:latest
+    --constraint=node.labels.PROD==YES
+
+15. Deploy voting-app using compose file.
+16. Understanding Ingress Controller and challanges with LB for each service.
+17. Deploy Traefik Ingress Controller and test voting app.
+18  How to read and ship logs using Elastic Cloud.
+19. Docker Swarm Secrets(k8s secrets).
+20. Docker Swarm Configs(k8s configmaps).
+21. Docker Swarm Reservations(k8s requests) & Limits.
+22. Docker Swarm node maintenence.
+    - Pause  - k8s cordon
+    - drain  - k8s drain
+    - active - k8s uncorcon
+23. Deployment Strategies.
+    - In-Place Upgrade - Downtime Impact
+    - Rolling update - Add new Servers/Container and remove old in a sequence.
+    - Blue/Green or A/B Deployments - Reduce Downtime.
+    - Canary Based Deploymeny - Reduce Downtime.
+
+24. Kubernetes Architecture
+25. Deploy K8S Cluster using Rancher Kubernetes Engine(RKE).
+26. Perform test app deployment.
+
+
+
+
